@@ -25,11 +25,11 @@ The project uses the SevSeg library for easy control of 7-segment displays.
 
 
 ##  Features
-- ✅ Works with **common anode** single-digit 7-segment displays  
-- ✅ Counts **0 → 9** automatically  
-- ✅ Toggles decimal point for visual effect  
-- ✅ Flicker-free thanks to continuous `refreshDisplay()` calls  
-- ✅ Adjustable brightness  
+- Works with **common anode** single-digit 7-segment displays  
+- Counts **0 → 9** automatically  
+- Toggles decimal point for visual effect  
+- Flicker-free thanks to continuous `refreshDisplay()` calls  
+- Adjustable brightness  
 
 ---
 
