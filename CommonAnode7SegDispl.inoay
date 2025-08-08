@@ -1,0 +1,40 @@
+/*
+  Project: Common Anode 7-Segment Display Counter (0–9) using SevSeg Library
+  Author: Gagandeepkaur | VoltiqueX
+  YouTube: https://www.youtube.com/@VoltiqueX
+
+  Description:
+  This Arduino sketch uses the SevSeg library to control a single-digit common anode 7-segment display. It counts from 0 to 9 with a 1-second interval and toggles the decimal point every alternate number.
+
+  Library: SevSeg by Dean Reading  
+*/
+
+#include "SevSeg.h"  // Include the SevSeg library
+SevSeg sevseg;       // Create an instance of SevSeg
+
+void setup() {
+    byte numDigits = 1;                          // Single digit display
+    byte digitPins[] = {};                       // No digit control pins for single digit
+    byte segmentPins[] = {6, 5, 2, 3, 4, 7, 8, 9}; // Pins for segments a,b,c,d,e,f,g,dp
+    bool resistorsOnSegments = true;             // Resistors are on segment pins
+
+    byte hardwareConfig = COMMON_ANODE;          // Correct for common anode display
+
+    // Initialize SevSeg with configuration
+    sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins, resistorsOnSegments);
+    sevseg.setBrightness(90);                    // Set brightness (0–100)
+}
+
+void loop() {
+    static unsigned long lastChange = 0; // Stores last time the digit changed
+    static int i = 0;                     // Current digit (0–9)
+
+    // If 1 second has passed, change the digit
+    if (millis() - lastChange >= 1000) {
+        sevseg.setNumber(i, i % 2); // Display digit i, toggle decimal point every alternate number
+        i = (i + 1) % 10;           // Loop back to 0 after 9
+        lastChange = millis();      // Update the last change time
+    }
+
+    sevseg.refreshDisplay(); // ✅ Must be called continuously to keep display stable
+}
